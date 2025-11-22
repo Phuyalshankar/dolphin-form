@@ -1,47 +1,61 @@
+📦 Dolphin Form – Dynamic React Form Component
 
-Dolphin Form - Dynamic React Form Component
-https://img.shields.io/badge/React-18.0+-blue.svg
-https://img.shields.io/badge/TypeScript-5.0+-blue.svg
-https://img.shields.io/badge/License-MIT-green.svg
 
-A highly customizable, dynamic form component for React with built-in Nepali localization and auto dark/light theme support.
+
+
+
+
+A highly customizable dynamic React form component with:
+
+Nepali localization 🇳🇵
+
+Auto dark/light theme
+
+Schema-based fields
+
+File upload with preview
+
+Conditional fields
+
+Custom styling variants
 
 🌟 Features
-Dynamic Schema-Based Forms - Define forms using JSON schema
 
-Multiple Field Types - Text, email, password, select, checkbox, file upload, and more
+Dynamic Schema-Based Forms – Define forms using JSON schema
 
-Auto Dark/Light Theme - System theme detection with manual override
+Multiple Field Types – text, email, password, select, checkbox, file upload, etc.
 
-Nepali Localization - Built-in Nepali language support
+Auto Dark/Light Theme – Follows system theme
 
-File Upload with Preview - Drag & drop file upload with image preview
+Nepali Localization – Built-in
 
-Conditional Fields - Show/hide fields based on form data
+File Upload with Preview – Drag & drop
 
-Form Validation - Built-in required field and email validation
+Conditional Fields – Based on form data
 
-Custom Styling - Multiple variants (filled, outlined, floating, standard)
+Validation – Required & email validation
 
-TypeScript Support - Fully typed for better development experience
+TypeScript Support – Fully typed
+
+Custom Styling Variants – filled, outlined, floating, plain, etc.
 
 🚀 Installation
-bash
 npm install dolphin-form
 # or
 yarn add dolphin-form
-📦 Peer Dependencies
-Make sure you have these dependencies installed:
 
-json
+📦 Peer Dependencies
+
+Make sure you have:
+
 {
   "react": "^18.0.0",
   "react-dom": "^18.0.0",
   "lucide-react": "^0.263.0"
 }
+
 💻 Basic Usage
-typescript
-import { DynamicForm } from 'dolphin-form';
+import { DynamicForm } from "dolphin-form";
 
 const schema = {
   fields: {
@@ -52,7 +66,7 @@ const schema = {
       variant: "floating"
     },
     email: {
-      type: "email", 
+      type: "email",
       label: "इमेल ठेगाना",
       required: true,
       variant: "filled"
@@ -72,29 +86,24 @@ const schema = {
 
 function App() {
   const handleSubmit = (data) => {
-    console.log('Form data:', data);
+    console.log("Form data:", data);
   };
 
-  return (
-    <DynamicForm 
-      schema={schema} 
-      onSubmit={handleSubmit} 
-    />
-  );
+  return <DynamicForm schema={schema} onSubmit={handleSubmit} />;
 }
+
 🎨 Field Types
 Text Input
-typescript
 {
   type: "text" | "email" | "password" | "number" | "date",
   label: "Field Label",
   required: true,
-  icon: "user", // user, mail, lock, upload, file
+  icon: "user",
   placeholder: "Placeholder text",
-  variant: "filled" // filled, outlined, floating, standard, plain
+  variant: "filled" // filled | outlined | floating | standard | plain
 }
+
 Select Dropdown
-typescript
 {
   type: "select",
   label: "Select Field",
@@ -103,35 +112,30 @@ typescript
     { value: "option2", label: "Option 2" }
   ]
 }
-Checkbox/Radio
-typescript
+
+Checkbox / Radio
 {
   type: "checkbox" | "radio",
   label: "Accept terms",
   required: true
 }
+
 File Upload
-typescript
 {
   type: "file",
   label: "Upload Files",
   multiple: true,
   accept: "image/*,.pdf",
-  maxSize: 10 // in MB
+  maxSize: 10
 }
+
 Layout Elements
-typescript
-// Heading
 { type: "heading", level: 2, text: "Section Title" }
-
-// Description  
 { type: "description", text: "Help text" }
-
-// Divider
 { type: "divider" }
+
 🔧 Advanced Features
 Conditional Fields
-typescript
 {
   userType: {
     type: "select",
@@ -144,83 +148,77 @@ typescript
   studentId: {
     type: "text",
     label: "Student ID",
-    condition: (data) => data.userType === "student" // Only shows when userType is student
+    condition: (data) => data.userType === "student"
   }
 }
+
 Custom Components
-typescript
 {
   type: "custom",
   component: YourCustomComponent,
   props: { customProp: "value" }
 }
-Theme Options
-typescript
-{
-  theme: "auto", // auto, light, dark
-  // auto: Follows system theme
-  // light: Always light theme
-  // dark: Always dark theme
-}
-🎯 Form Context
-Access form state and methods using the useForm hook:
 
-typescript
-import { useForm } from 'dolphin-form';
+Theme Options
+{
+  theme: "auto" // "auto" | "light" | "dark"
+}
+
+🎯 Form Context
+import { useForm } from "dolphin-form";
 
 function CustomField() {
-  const { data, setField, errors, touched } = useForm();
-  
+  const { data, setField, errors } = useForm();
+
   return (
     <div>
-      <input 
-        value={data.customField} 
-        onChange={(e) => setField('customField', e.target.value)}
+      <input
+        value={data.customField}
+        onChange={(e) => setField("customField", e.target.value)}
       />
       {errors.customField && <span>{errors.customField}</span>}
     </div>
   );
 }
+
 📋 Props
-DynamicForm Component
+DynamicForm Props
 Prop	Type	Required	Description
-schema	Schema	Yes	Form configuration object
-onSubmit	(data: Record<string, any>) => void	Yes	Form submission handler
-loading	boolean	No	Show loading state on submit button
+schema	Schema	Yes	Form configuration
+onSubmit	(data: Record<string, any>) ⇒ void	Yes	Submit handler
+loading	boolean	No	Submit button loading state
 className	string	No	Additional CSS classes
-Schema Object
-Property	Type	Description
-fields	Record<string, Field>	Form field definitions
-submitText	string	Submit button text (default: "सबमिट गर्नुहोस्")
-theme	"light" | "dark" | "auto"	Color theme (default: "auto")
 🎨 Styling
-The component uses dolphincss for styling. Make sure to import the CSS:
 
-typescript
+Import DolphinCSS:
+
 import "dolphincss/dolphin-css.css";
-Available Variants
-filled - Material Design filled input
 
-outlined - Material Design outlined input
 
-floating - Floating label input
+Input Variants:
 
-standard - Standard underline input
+filled
 
-plain - Minimal styling
+outlined
+
+floating
+
+standard
+
+plain
 
 🌐 Nepali Localization
-All default labels and placeholders are in Nepali. You can customize them in your schema:
 
-typescript
+Default text Nepali मा हुन्छ:
+
 {
   label: "तपाईंको नाम",
   placeholder: "नाम लेख्नुहोस्",
   submitText: "पेश गर्नुहोस्"
 }
+
 🔮 Examples
 Registration Form
-typescript
 const registrationSchema = {
   fields: {
     personalInfo: { type: "heading", level: 2, text: "व्यक्तिगत जानकारी" },
@@ -228,38 +226,35 @@ const registrationSchema = {
     email: { type: "email", label: "इमेल", required: true },
     password: { type: "password", label: "पासवर्ड", required: true },
     divider: { type: "divider" },
-    agree: { type: "checkbox", label: "सबै शर्तहरू स्वीकार गर्छु", required: true }
+    agree: {
+      type: "checkbox",
+      label: "सबै शर्तहरू स्वीकार गर्छु",
+      required: true
+    }
   },
   submitText: "खाता खोल्नुहोस्",
   theme: "auto"
 };
+
 File Upload Form
-typescript
 const uploadSchema = {
   fields: {
     title: { type: "heading", level: 2, text: "फाइल अपलोड" },
-    documents: { 
-      type: "file", 
-      label: "फाइलहरू", 
-      multiple: true, 
-      accept: "image/*,.pdf" 
+    documents: {
+      type: "file",
+      label: "फाइलहरू",
+      multiple: true,
+      accept: "image/*,.pdf"
     },
     note: { type: "description", text: "अधिकतम १०MB सम्म" }
   },
   submitText: "अपलोड गर्नुहोस्"
 };
+
 🤝 Contributing
-We welcome contributions! Please feel free to submit issues and pull requests.
+
+PRs and issues are always welcome!
 
 📄 License
-MIT License - see the LICENSE file for details.
 
-🙏 Acknowledgments
-Built with React
-
-Icons by Lucide React
-
-Styling with Dolphin CSS
-
-Made with ❤️ in Nepal
-
+MIT License
