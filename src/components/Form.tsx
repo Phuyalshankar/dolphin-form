@@ -1,7 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { useState, useEffect, useMemo, useCallback, createContext, useContext, forwardRef } from "react";
 import { Mail, Lock, User, Eye, EyeOff, CloudUpload, FileText, X, ChevronDown } from "lucide-react";
-import "dolphincss/dolphin-css.css";
 
 /* ====================== TYPES ====================== */
 type Variant = "filled" | "outlined" | "plain" | "floating" | "standard";
@@ -34,7 +33,7 @@ type Field = TextField | FileField | SelectField | CheckField | HeadingField | D
 interface Schema {
   fields: Record<string, Field>;
   submitText?: string;
-  theme?: "light" | "dark" | "auto"; // ✅ THEME SUPPORT फिर्ता थप्नुहोस्
+  theme?: "light" | "dark" | "auto";
 }
 
 /* ====================== CONTEXT ====================== */
@@ -76,19 +75,25 @@ const UniversalInput = forwardRef<HTMLInputElement, {
       <div className="mb-6">
         {field.label && <label className="block text-sm font-medium mb-2">{field.label}{field.required && <span className="text-danger ml-1">*</span>}</label>}
         <div className="relative">
-          {Icon && <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted z-10 pointer-events-none" />}
           <select
             value={value || ""}
             onChange={e => onValueChange(e.target.value)}
             onBlur={onBlur}
-            className={`${v} primary w-full ${Icon ? "pl-10" : "pl-4"} pr-10 py-3 appearance-none ${hasError ? "border-danger" : ""}`}
-            style={{ borderRadius: "var(--radius-md)" }}
+            className={`${v} primary w-full pl-4 pr-10 py-3 appearance-none ${hasError ? "border-danger" : ""}`}
+            style={{ 
+              borderRadius: "var(--radius-md)",
+              // ✅ DOUBLE ARROW FIX
+              backgroundImage: "none",
+              WebkitAppearance: "none",
+              MozAppearance: "none"
+            }}
           >
             <option value="">{field.placeholder || "छान्नुहोस्"}</option>
             {(field as SelectField).options.map(o => (
               <option key={o.value} value={o.value}>{o.label}</option>
             ))}
           </select>
+          {/* ✅ RIGHT SIDE ARROW ONLY */}
           <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted pointer-events-none" />
         </div>
         {hasError && <p className="text-danger text-sm mt-1">{error}</p>}
@@ -270,7 +275,7 @@ const Form: React.FC<{
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [previews, setPreviews] = useState<Record<string, any>>({});
 
-  // ✅ AUTO THEME SYSTEM फिर्ता थप्नुहोस्
+  // ✅ AUTO THEME SYSTEM
   useEffect(() => {
     const theme = schema.theme || "auto";
     
@@ -390,3 +395,19 @@ const Form: React.FC<{
 
 export default Form;
 export { useForm };
+export type {
+  Schema,
+  Field,
+  Variant,
+  FieldType,
+  BaseField,
+  TextField,
+  FileField,
+  SelectField,
+  CheckField,
+  HeadingField,
+  DescriptionField,
+  DividerField,
+  CustomField,
+  FormContextValue
+};

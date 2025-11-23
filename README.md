@@ -251,6 +251,8 @@ const uploadSchema = {
   submitText: "अपलोड गर्नुहोस्"
 };
 
+npm install dolphin-form dolphincss lucide-react
+import "dolphincss/dolphin-css.css";
 🤝 Contributing
 
 PRs and issues are always welcome!
